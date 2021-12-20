@@ -1,22 +1,14 @@
 <template>
-    <div class="mcountainer">
-        <div id="login" v-on:mousedown.left="createLoves($event)"  v-on:mouseup="removeSmallHert">
+    <div >
+        <div id="login" v-on:mousedown.left="createLoves($event)" @click="removeSmallHert">
             <background ref="background"></background>
         </div>
         <Header>
-
         </Header>
-        <el-pagination
-                class="mpage"
-                background
-                layout="prev, pager, next"
-                :current-page="currentPage"
-                :page-size="pageSize"
-                :total="total"
-                @pageCurrentChange="page"
-        >
-        </el-pagination>
-        <div class="block">
+
+    <div class="block">
+
+
 
             <el-timeline>
 
@@ -25,6 +17,7 @@
 
                     <el-card>
                         <h4>
+<!--                                                                key:value 路由跳转携带参数-->
                             <router-link :to="{name:'BlogDetail',params:{blogId:blog.id}}">
                              {{blog.title}}
                             </router-link>
@@ -33,10 +26,14 @@
                     </el-card>
                 </el-timeline-item>
 
-            </el-timeline>
 
+            </el-timeline>
+        <el-pagination class="mpage" background layout="prev, pager, next" :current-page="currentPage"
+                       :page-size="pageSize" :total="total" @current-change=page>
+        </el-pagination>
 
         </div>
+
 
 <!--        blogs-->
     </div>
@@ -44,8 +41,8 @@
 
 <script>
     import Header from "../components/Header"
-
     import background from "../components/LoveH"
+
     export default {
         name: "Blogs.vue",
         components: {Header,background},
@@ -64,7 +61,7 @@
                 const _this = this
                 _this.$axios.get("/blogs?currentPage="+currentPage).then(res=>{
                     //初始化
-                    console.log(res)
+                    // console.log(res)
                     var data = res.data.data
                     _this.blogs = data.records
                     _this.currentPage = data.current
@@ -78,6 +75,7 @@
             removeSmallHert(){
                 this.$refs.background.removeSmallHert()
             }
+
         },
         created(){
             if(this.$store.getters.getUser.username!=null){
@@ -99,11 +97,11 @@
         margin: 0 auto;
         text-align: center;
     }
-    #login{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+    /*#login{*/
+    /*    position: absolute;*/
+    /*    top: 0;*/
+    /*    left: 0;*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*}*/
 </style>

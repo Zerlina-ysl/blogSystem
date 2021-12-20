@@ -44,10 +44,16 @@ const routes = [
       requireAuth:true
     }
   },
+  {
+    path:'/blogdel/:blogId',
+    name:'BlogDel',
+    component: BlogEdit,
+  }
 
 ]
 
 const router = new VueRouter({
+  //使用history模式
   mode: 'history',
   base: process.env.BASE_URL,
   routes

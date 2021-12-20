@@ -16,14 +16,15 @@
                 {{blog.title}}
             </h2>
 
-            <el-link icon="el-icon-edit">
-                <router-link :to="{name:'BlogEdit',params:{blogId:blog.id}}" v-if="ownBlog">编辑
+            <el-link icon="el-icon-edit" v-show="ownBlog">
+<!--                用户在具有路由功能的应用中导航 通过to属性指定目标地址 默认渲染成带有正确链接的a标签 也可以通过tag标签指定-->
+                <router-link :to="{name:'BlogEdit',params:{blogId:blog.id}}" >编辑
                 </router-link>
             </el-link>
             <el-divider direction="vertical"></el-divider>
 
-                <el-link icon="el-icon-delete" v-if="ownBlog" round @click="delblog" class="del" style="color: red">
-                    删除
+                <el-link icon="el-icon-delete" v-show="ownBlog">
+                 <span  round @click="delblog"  style="color: red">删除</span>
                 </el-link>
             <el-divider></el-divider>
             <div v-html="blog.content" class="markdown-body"></div>
@@ -93,8 +94,10 @@
             }
         },
         created(){
+            console.log("BlogDetail")
 
             const blogId = this.$route.params.blogId
+            console.log(blogId)
             if(blogId) {
                 console.log(blogId)
 
@@ -112,7 +115,7 @@
                     _this.blog.content = result
 
                     _this.ownBlog = (blog.userId===_this.$store.getters.getUser.id)
-
+                    console.log(_this.ownBlog)
                 })
             }
         }

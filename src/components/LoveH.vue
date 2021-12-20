@@ -46,15 +46,15 @@
                 let index = 0;//text文本下标
                 let color = "background-color:rgb(" + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + ");";
                 index = Math.floor(Math.random()* this.text.length) ;
-                console.log(this.text[index]);
+                // console.log(this.text[index]);
                 // alert(this.$el);
                 x = event.clientX - 10;
                 y = event.clientY  - 17;
                 // alert(event.clientX);
 
-                console.log('x:'+x+' y:'+y+' color:'+color);
+                // console.log('x:'+x+' y:'+y+' color:'+color);
                 let style = {
-                    count : 'img' + ++this.count,//
+                    count : 'img' + ++this.count,
                     top : 'top:' + y + 'px;',
                     left : 'left:' + x + 'px;',
                     opacity : 'opacity:' + 0.5 + ';',
@@ -79,7 +79,7 @@
                 let color = "rgb(" + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + ")";
                 let bubble={}
                 for (var i = 0; i < 11; i++) {
-                    console.log(wh[i]);
+                    // console.log(wh[i]);
                     bubble = {
                         left   : 'left:' + Math.floor((Math.random() * 80) + 10)　+'%;',
                         width  : 'width:' + wh[i]+'px;',
@@ -88,7 +88,7 @@
                         delay    : 'animation-delay:' + delay[i] + 's;',
                         duration : 'animation-duration:' + duration[i] + 's;',
                     }
-                    console.log('bubble'+bubble.color);
+                    // console.log('bubble'+bubble.color);
                     this.bubbles.push(bubble);
                     //使用随机生成位置，但是显然具有不可控性
                     // wh = Math.floor((Math.random()) * 65 + 15);
@@ -97,7 +97,7 @@
                     // delay = Math.floor((Math.random() * 6) % 3 + 1) * Math.floor(Math.random() * 2) % 2;
                     color = "rgb(" + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + ")";
                     // this.sleep(1000);
-                    console.log(i+'size:'+this.bubbles.length)
+                    // console.log(i+'size:'+this.bubbles.length)
                 }
             },
             updateBubble(){

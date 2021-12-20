@@ -41,7 +41,7 @@
     import background from "../components/LoveH";
     export default {
         name: "BlogEdit.vue",
-        components: {Header,background},
+        components: {Header},
         data() {
             return {
                 ruleForm: {

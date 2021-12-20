@@ -28,7 +28,12 @@ Vue.prototype.$axios = axios
 
 //项目入口
 new Vue({
+  //将路由规则对象注册到vm实例，在实例中提供this.$route(访问当前路由 this.$router(访问路由器
   router,
   store,
+  //利用render函数渲染APP.vue组件
+  //render: function (createElement) {
+  //      return createElement(App);
+  // }
   render: h => h(App)
 }).$mount('#app')
