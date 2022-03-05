@@ -35,6 +35,7 @@ export default new Vuex.Store({
   getters: {
     //相当于get
     //配置一个getUser可以直接获取已经反序列化对象的一个userInfo
+    //使用此方法验证是否登录
     getUser: state=>{
       return state.userInfo;
     },getToken: state=>{

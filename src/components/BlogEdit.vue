@@ -36,9 +36,9 @@
 
 
 <script>
-    import Header from "../components/Header";
+    import Header from "./Header";
 
-    import background from "../components/LoveH";
+    import background from "./LoveH";
     export default {
         name: "BlogEdit.vue",
         components: {Header},

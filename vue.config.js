@@ -1,3 +1,4 @@
 module.exports={
-    publicPath:'/vueblog'
+    publicPath:'/vueblog',
+
 }

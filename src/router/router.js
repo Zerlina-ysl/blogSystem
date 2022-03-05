@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Blogs from '../views/Blogs.vue'
-import BlogEdit from '../views/BlogEdit.vue'
-import BlogDetail from '../views/BlogDetail.vue'
+import Login from '../components/Login.vue'
+import Blogs from '../components/Blogs.vue'
+import BlogEdit from '../components/BlogEdit.vue'
+import BlogDetail from '../components/BlogDetail.vue'
 
 Vue.use(VueRouter)
-
+//路由规则的配置.
 const routes = [
   {
     path: '/',
@@ -47,7 +47,7 @@ const routes = [
   {
     path:'/blogdel/:blogId',
     name:'BlogDel',
-    component: BlogEdit,
+    component: BlogDetail,
   }
 
 ]

@@ -25,7 +25,7 @@ axios.interceptors.response.use(response=>{
     }
     else{
         // const msg = res.msg
-        Element.Message.error("操作出现异常")
+        Element.Message.error(res.msg)
         return Promise.reject(response.data.msg)
     }
 
@@ -34,21 +34,17 @@ axios.interceptors.response.use(response=>{
 },
     error=>{
         console.log(error)
-        //Error: Request failed with status code 400
-        //     at createError (createError.js?e648:16)
-        //     at settle (settle.js?5faf:17)
-        //     at XMLHttpRequest.onloadend (xhr.js?b9e2:66)
         if(error.response.data){
             error.message = error.response.data.msg
             console.log("======后置拦截======")
             console.log(error.message)
             console.log("==============")
         }
-        if(error.response.status === 401){
-
-            store.commit("REMOVE_INFO")
-            router.push("/login")
-        }
+        // if(error.response.status === 401){
+        //
+        //     store.commit("REMOVE_INFO")
+        //     router.push("/login")
+        // }
         Element.Message.error(error.message)
         return Promise.reject(error)
     },

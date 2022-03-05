@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import router from './router/router'
+import store from './store/store'
 //在入口文件引入element-ui的依赖
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 //引入axios
 import axios from 'axios'
 //引入拦截器
-import "./axios.js"
+import "./plugins/axios.js"
+
+Vue.config.productionTip = false
+Vue.prototype.$axios=axios
 
 import  mavonEditor from 'mavon-editor'
 

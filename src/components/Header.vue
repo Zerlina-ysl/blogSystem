@@ -1,7 +1,7 @@
 <template>
     <div class="mcontent">
-<!--        在组件中写Header 可以在其他路由页面作为组件引入-->
-<!--        header-->
+
+<!--   定义头部-->
 
         <h3>欢迎来到小李的博客</h3>
 <!--        头像-->
@@ -45,7 +45,8 @@
             logout(){
                 const _this = this
                 _this.$axios.get("/logout",{
-                    //退出有报错
+                    //需要认证权限 所以需要传递相关消息
+
                     headers:{
                         "Authorization":localStorage.getItem("token")
                     }
