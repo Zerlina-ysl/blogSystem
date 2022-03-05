@@ -1,0 +1,4 @@
+{ "properties": [ {
+  "name": "shiro-redis.redis-manager.password",
+  "type": "java.lang.String",
+  "description": "Description for shiro-redis.redis-manager.password."}] }

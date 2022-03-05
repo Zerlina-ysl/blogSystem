@@ -53,7 +53,7 @@ public class BlogController {
     @GetMapping("/blog/{id}")
     public Result detail(@PathVariable(name="id") Long id){
         Blog blog = bservice.getById(id);
-        Assert.notNull("该博客已被删除");
+        Assert.notNull("该博客不存在");
 
         return Result.succ(blog);
 
@@ -79,7 +79,7 @@ public class BlogController {
             temp.setCreated(LocalDateTime.now());
 
         }
-
+    //功能完成后需要向前端返回edit后的数据
         BeanUtil.copyProperties(blog,temp,"id","userId","created","status");
         bservice.saveOrUpdate(temp);
 

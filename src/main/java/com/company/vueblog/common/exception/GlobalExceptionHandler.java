@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
     // 捕捉shiro的异常
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
-    public Result handle401(ShiroException e) {
-        return Result.fail(401, e.getMessage(), null);
+    public Result handler(ShiroException e) {
+        return Result.fail(401, e.getMessage());
     }
 
 
@@ -35,10 +35,13 @@ public class GlobalExceptionHandler {
         return Result.fail(e.getMessage());
     }
 
+    //catch校验异常
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public Result handler(MethodArgumentNotValidException e)  {
         log.error("实体校验异常:-------------->",e);
+
+
         BindingResult bindingResult = e.getBindingResult();
         //出现多个异常时 只抛出第一个异常
         ObjectError error = bindingResult.getAllErrors().stream().findFirst().get();
@@ -46,6 +49,7 @@ public class GlobalExceptionHandler {
         return Result.fail(error.getDefaultMessage());
     }
 
+    //自定义的断言异常
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e) {

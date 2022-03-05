@@ -62,7 +62,7 @@ public class JwtFilter extends AuthenticatingFilter {
         Throwable throwable = e.getCause() == null ? e : e.getCause();
 
         Result result = Result.fail(throwable.getMessage());
-        //返回json
+        //json格式返回异常原因
         String json = JSONUtil.toJsonStr(result);
         try {
             //打印json
@@ -75,7 +75,7 @@ public class JwtFilter extends AuthenticatingFilter {
     }
 
     /**
-     * 对跨域提供支持
+     * 处理跨域问题
      * @param request
      * @param response
      * @return

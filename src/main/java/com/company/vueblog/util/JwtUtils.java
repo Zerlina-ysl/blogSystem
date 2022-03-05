@@ -19,9 +19,11 @@ import java.util.Date;
 @Component
 @ConfigurationProperties(prefix = "markerhub.jwt")
 public class JwtUtils {
-
+    //密钥
     private String secret;
+    //过期时间
     private long expire;
+    //请求头
     private String header;
 
     /**

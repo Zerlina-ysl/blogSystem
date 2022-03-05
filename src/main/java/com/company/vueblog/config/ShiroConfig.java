@@ -38,6 +38,10 @@ public class ShiroConfig {
         sessionManager.setSessionDAO(redisSessionDAO);
         return sessionManager;
     }
+
+
+
+
     @Bean
     public DefaultWebSecurityManager securityManager(AccountRealm accountRealm,
                                                      SessionManager sessionManager,
@@ -85,11 +89,6 @@ public class ShiroConfig {
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilter;
-    }
-
-    @Bean
-    JwtFilter jwtFilter(){
-        return new JwtFilter();
     }
 
 

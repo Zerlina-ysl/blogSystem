@@ -11,5 +11,20 @@ markerhub:
     expire: 604800
     header: token
 
+#DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 88888888
+  main:
+    allow-bean-definition-overriding: true
+shiro-redis:
+  enabled: true
+  redis-manager:
+    host: 120.55.99.231:6379
+
+
 
 

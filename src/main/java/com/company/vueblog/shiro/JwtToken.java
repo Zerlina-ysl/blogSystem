@@ -1,7 +1,7 @@
 package com.company.vueblog.shiro;
 
 import org.apache.shiro.authc.AuthenticationToken;
-
+//保存存储username和password的token
 public class JwtToken implements AuthenticationToken {
 
     private String token;

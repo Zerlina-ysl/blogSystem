@@ -2,6 +2,7 @@ package com.company.vueblog.common.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 @Data
@@ -12,5 +13,7 @@ public class LoginDto  implements Serializable {
     @NotBlank(message="密码不能为空")
     private String password;
 
+    @Email(message = "邮箱格式出错")
+    private String email;
 
 }

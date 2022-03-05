@@ -2,8 +2,10 @@ package com.company.vueblog.common.lang;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Result {
+public class Result implements Serializable {
     //200是正常
     private int code;
     private String msg;
@@ -25,9 +27,8 @@ public class Result {
     public static Result fail(String msg){
         return status(404,msg,null);
     }//?
-    public static Result fail(int code,String msg,Object data){
-        return status(404,msg,null);
+    public static Result fail(int code,String msg){
+        return status(code,msg,null);
     }//?
-
 
 }

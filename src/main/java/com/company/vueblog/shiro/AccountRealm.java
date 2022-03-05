@@ -12,6 +12,10 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+/**
+ * 登录逻辑的处理
+ */
 @Slf4j
 @Component
 public class AccountRealm extends AuthorizingRealm {
@@ -27,6 +31,7 @@ public class AccountRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         return null;
     }
+    //filter的login()操作会到达该方法
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         JwtToken jwt = (JwtToken) token;
@@ -43,6 +48,12 @@ public class AccountRealm extends AuthorizingRealm {
         AccountProfile profile = new AccountProfile();
         BeanUtil.copyProperties(user, profile);
         log.info("profile----------------->{}", profile.toString());
+        /**
+         *  public SimpleAuthenticationInfo(Object principal, Object credentials, String realmName) {
+         *         this.principals = new SimplePrincipalCollection(principal, realmName);
+         *         this.credentials = credentials;
+         *     }
+         */
         return new SimpleAuthenticationInfo(profile, jwt.getCredentials(), getName());
     }
 }
