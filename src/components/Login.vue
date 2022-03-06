@@ -33,20 +33,18 @@
 
 
         <span v-show="isRegister">
-    <el-form :model="registerForm" :rules="rules1" ref="registerForm" label-width="120px" class="demo-ruleForm">
+    <el-form :model="registerForm" :rules="rules2" ref="registerForm" label-width="120px" class="demo-ruleForm">
 
 
                 <el-form-item label="用户名" prop="username">
                     <el-input v-model="registerForm.username"></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="pass">
-                    <el-input type="password" v-model="registerForm.pass" autocomplete="off"></el-input>
+                <el-form-item label="密码" prop="password">
+                    <el-input type="password" v-model="registerForm.password" ></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码" prop="checkPass">
-                    <el-input type="password" v-model="registerForm.checkPass" autocomplete="off"></el-input>
-                </el-form-item>
+
                    <el-form-item prop="email"label="邮箱">
-      <el-input v-model="registerForm.email"></el-input>
+                       <el-input v-model="registerForm.email"></el-input>
                    </el-form-item>
 
 <br>
@@ -74,30 +72,7 @@
         name: "Login",
         components: {background},
         data() {
-            var validatePass = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入密码'));
-                } else {
-                    if(this.registerForm.checkPass.length()>15&&this.registerForm.checkPass.length()<3){
-                        callback(new Error("长度在 3 到 15 个字符"));
-                    }
-                    else if (this.registerForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
-                    }
-                    callback();
-                }
-            };
-            var validatePass2 = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请再次输入密码'));
-                }
-                else if (value !== this.registerForm.pass) {
 
-                    callback(new Error('两次输入密码不一致!'));
-                } else {
-                    callback();
-                }
-            };
             return {
                 isRegister: false,
                 loginForm: {
@@ -106,8 +81,7 @@
 
                 },
                 registerForm:{
-                    pass: '',
-                    checkPass: '',
+                    password: '',
                     email: '',
                     username: '',
                 },
@@ -126,6 +100,11 @@
                         {required: true, message: '请输入用户名', trigger: 'blur'},
                         {min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur'}
                     ],
+                    password: [
+                        {required: true, message: '请输入密码', trigger: 'blur'},
+                        {min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur'}
+                    ],
+
 
                     email: [
                         { required: true, message: '请输入邮箱地址', trigger: 'blur' },

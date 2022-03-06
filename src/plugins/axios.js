@@ -40,11 +40,7 @@ axios.interceptors.response.use(response=>{
             console.log(error.message)
             console.log("==============")
         }
-        // if(error.response.status === 401){
-        //
-        //     store.commit("REMOVE_INFO")
-        //     router.push("/login")
-        // }
+
         Element.Message.error(error.message)
         return Promise.reject(error)
     },

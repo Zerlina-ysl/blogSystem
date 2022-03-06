@@ -3,7 +3,7 @@
 
 <!--   定义头部-->
 
-        <h3>欢迎来到小李的博客</h3>
+        <h3 >欢迎来到{{user.username}}的博客</h3>
 <!--        头像-->
         <div class="block">
                 <el-avatar :size="50" :src="user.avatar"></el-avatar>

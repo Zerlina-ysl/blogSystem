@@ -48,7 +48,8 @@ const routes = [
     path:'/blogdel/:blogId',
     name:'BlogDel',
     component: BlogDetail,
-  }
+  },
+
 
 ]
 

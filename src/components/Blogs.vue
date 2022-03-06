@@ -49,15 +49,16 @@
                 currentPage: 1,
                 total: 0,
                 pageSize: 2,
-                flag: false
+                flag: false,
+                username: '',
             }
         },
         methods: {
-            page(currentPage) {
+            page(currentPage,username) {
                 const _this = this
-                _this.$axios.get("/blogs?currentPage=" + currentPage).then(res => {
+                _this.$axios.get("/blogs?currentPage=" + currentPage+"&username="+username).then(res => {
                     //初始化
-                    // console.log(res)
+                    console.log(username)
                     var data = res.data.data
                     _this.blogs = data.records
                     _this.currentPage = data.current
@@ -76,8 +77,7 @@
         created() {
             if (this.$store.getters.getUser.username != null) {
                 this.flag = true
-                this.page(1)
-
+                this.page(1,this.$store.getters.getUser.username)
             }
         }
     }
