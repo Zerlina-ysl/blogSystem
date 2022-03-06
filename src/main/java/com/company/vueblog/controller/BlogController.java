@@ -40,10 +40,11 @@ public class BlogController {
      * @return
      */
     @GetMapping("/blogs")
-    public Result list(@RequestParam(defaultValue="1") Integer currentPage){
+    public Result list(@RequestParam(defaultValue="1") Integer currentPage,
+                       @RequestParam(value="username")String username){
 
         Page page  = new Page(currentPage,2);
-        IPage<Blog> pageData = bservice.page(page, new QueryWrapper<Blog>().orderByDesc("created"));
+        IPage<Blog> pageData = bservice.page(page, new QueryWrapper<Blog>().orderByDesc("created").eq("username",username));
 
         return Result.succ(pageData);
     }
@@ -61,9 +62,11 @@ public class BlogController {
 //@RequestBody不支持GET请求
     @RequiresAuthentication
     @PostMapping("/blog/edit")
-    public Result list(@Validated @RequestBody Blog blog){
+    public Result list(@Validated @RequestBody Blog blog,
+                       @RequestParam(value="username")String username){
         System.out.println(blog);
         Blog temp=null;
+        temp.setUsername(username);
         if(blog.getId()!=null) {
             //参数带有id 处于编辑状态
             temp=bservice.getById(blog.getId());

@@ -9,16 +9,22 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.company.vueblog.common.dto.LoginDto;
 import com.company.vueblog.common.lang.Result;
 import com.company.vueblog.entity.User;
+import com.company.vueblog.mapper.UserMapper;
 import com.company.vueblog.service.UserService;
 import com.company.vueblog.util.JwtUtils;
+import com.company.vueblog.util.Md5Utils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import sun.security.provider.MD5;
 
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @RestController
 public class AccountController {
@@ -68,21 +74,26 @@ public class AccountController {
 
     }
 
-    @PostMapping("/register")
+
+
+    @RequestMapping("/register")
     public Result register(@RequestBody @Validated LoginDto loginDto,HttpServletResponse response){
         String username = loginDto.getUsername();
         String password = loginDto.getPassword();
+        Md5Utils md5Util = new Md5Utils();
+
         String email = loginDto.getEmail();
         //根据username区分
         User isExist = uservice.getOne(new QueryWrapper<User>().eq("username", username));
         if(isExist==null){
             User user = new User()
                     .setUsername(username)
-                    .setPassword(password)
-                    .setEmail(email);
-            UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-
-            boolean update = uservice.update(updateWrapper);
+                    .setEmail(email)
+                    .setStatus(0)
+                    .setCreated(LocalDateTime.now());
+            //密码进行md5加密
+            user.setPassword(md5Util.encode(password));
+            boolean update = uservice.saveOrUpdate(user);
             Long id = null;
             if(update){
                 id = uservice.getOne(new QueryWrapper<User>().eq("username", username)).getId();

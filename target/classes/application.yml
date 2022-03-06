@@ -23,7 +23,7 @@ spring:
 shiro-redis:
   enabled: true
   redis-manager:
-    host: 120.55.99.231:6379
+    host: 120.55.56.55:6379
 
 
 

@@ -32,6 +32,8 @@ public class Blog implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    private String username;
+
     private Long userId;
 
     @NotBlank(message="题目不能为空")
