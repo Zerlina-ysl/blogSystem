@@ -3,28 +3,26 @@ package com.company.vueblog.controller;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.company.vueblog.common.dto.LoginDto;
 import com.company.vueblog.common.lang.Result;
 import com.company.vueblog.entity.User;
-import com.company.vueblog.mapper.UserMapper;
+import com.company.vueblog.service.IOssService;
 import com.company.vueblog.service.UserService;
 import com.company.vueblog.util.JwtUtils;
-import com.company.vueblog.util.Md5Utils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import sun.security.provider.MD5;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @RestController
 public class AccountController {
@@ -80,7 +78,7 @@ public class AccountController {
     public Result register(@RequestBody @Validated LoginDto loginDto,HttpServletResponse response){
         String username = loginDto.getUsername();
         String password = loginDto.getPassword();
-        Md5Utils md5Util = new Md5Utils();
+
 
         String email = loginDto.getEmail();
         //根据username区分
@@ -89,10 +87,10 @@ public class AccountController {
             User user = new User()
                     .setUsername(username)
                     .setEmail(email)
+                    .setPassword(SecureUtil.md5(password))
                     .setStatus(0)
                     .setCreated(LocalDateTime.now());
             //密码进行md5加密
-            user.setPassword(md5Util.encode(password));
             boolean update = uservice.saveOrUpdate(user);
             Long id = null;
             if(update){
@@ -114,6 +112,25 @@ public class AccountController {
                 .map()
         );
 
+    }
+
+
+
+    @Autowired
+    private IOssService ossService;
+
+    @PostMapping(value="/uploadAvatar")
+    @ResponseBody
+    public Result upload(@RequestParam("file")MultipartFile file,
+                         @RequestParam("username")String username,
+                         HttpServletRequest request){
+        System.out.println("username");
+        String url = ossService.upload(file);
+        System.out.println("头像上传到阿里云的地址："+url);
+        User user = new User();
+        user.setAvatar(url).setUsername(username);
+        uservice.update(user,new UpdateWrapper<User>().eq("username",username));
+        return Result.succ("头像上传成功");
     }
 
 

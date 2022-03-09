@@ -23,7 +23,20 @@ spring:
 shiro-redis:
   enabled: true
   redis-manager:
-    host: 120.55.56.55:6379
+    host: 47.99.34.106:6379
+
+
+aliyun:
+  oss:
+    #oss 对外服务的访问域名
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    # 访问身份验证中用到用户标识
+    accessKeyId: LTAI5tB5McTpieaGGHmFEw58
+    # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    accessKeySecret: i1Lrfwlcu68DUGydhpq3HTFtyyCvxH
+    # 存储空间
+    bucketName: xiaoli-oss1
+
 
 
 

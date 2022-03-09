@@ -62,17 +62,14 @@ public class BlogController {
 //@RequestBody不支持GET请求
     @RequiresAuthentication
     @PostMapping("/blog/edit")
-    public Result list(@Validated @RequestBody Blog blog,
-                       @RequestParam(value="username")String username){
+    public Result list(@Validated @RequestBody Blog blog){
         System.out.println(blog);
         Blog temp=null;
-        temp.setUsername(username);
         if(blog.getId()!=null) {
             //参数带有id 处于编辑状态
             temp=bservice.getById(blog.getId());
             //当前登录编辑博客的用户id == 博客的用户id
             Assert.isTrue(temp.getUserId().longValue()==ShiroUtils.getProfile().getId().longValue(),"没有权限编辑");
-
 
         }else{
             //处于添加状态
