@@ -4,13 +4,15 @@
             <background ref="background"></background>
         </div>
 
-        <span v-show="!isRegister">
         <el-container>
         <el-header>
             <img class="mlogo" src="../assets/img/OIP-C.jpg">
         </el-header>
+
         <el-main>
 
+
+            <span v-show="!isRegister">
             <el-form :model="loginForm" :rules="rules1" ref="loginForm" label-width="120px" class="demo-ruleForm">
 
                 <el-form-item label="用户名" prop="username">
@@ -24,21 +26,17 @@
                     <el-button @click="isRegister=true">注册账号</el-button>
                 </el-form-item>
             </el-form>
-        </el-main>
-        </el-container>
-    </span>
+            </span>
 
 
-
-
-
-        <span v-show="isRegister">
+             <span v-show="isRegister">
     <el-form :model="registerForm" :rules="rules2" ref="registerForm" label-width="120px" class="demo-ruleForm">
 
 
                 <el-form-item label="用户名" prop="username">
                     <el-input v-model="registerForm.username"></el-input>
                 </el-form-item>
+
                 <el-form-item label="密码" prop="password">
                     <el-input type="password" v-model="registerForm.password" ></el-input>
                 </el-form-item>
@@ -47,7 +45,6 @@
                        <el-input v-model="registerForm.email"></el-input>
                    </el-form-item>
 
-<br>
 
                 <el-form-item>
                     <el-button @click="isRegister=false">转向登录</el-button>
@@ -55,9 +52,20 @@
                 </el-form-item>
 
             </el-form>
+                   </span>
+         </el-main>
 
 
-        </span>
+
+
+
+
+        </el-container>
+
+
+
+
+
 
 
     </div>

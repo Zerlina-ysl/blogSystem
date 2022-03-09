@@ -3,11 +3,23 @@
 
 <!--   定义头部-->
 
-        <h3 >欢迎来到{{user.username}}的博客</h3>
+        <h3 v-if="user.username!='请先登录'">欢迎来到{{user.username}}的博客</h3>
 <!--        头像-->
         <div class="block">
-                <el-avatar :size="50" :src="user.avatar"></el-avatar>
+                <el-avatar :size="100" :src="this.user.avatar" ></el-avatar>
+            <el-upload
+                    class="upload-demo"
+                    action=""
+                    :http-request="uploadImage"
+                    :show-file-list="false"
+                    :limit="1"
+                    :before-upload="beforeAvatarUpload">
+                <el-button size="small" type="primary">上传头像</el-button>
+
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
             <div>{{user.username}}</div>
+
         </div>
 
     <div class="maction">
@@ -38,7 +50,7 @@
                     username: '请先登录',
                     avatar: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
                 },
-                hasLogin:false
+                hasLogin:false,
             }
         },
         methods:{
@@ -60,12 +72,43 @@
                 },
             login(){
                 this.$router.push("/login")
-            }
+            },
+
+            uploadImage(param) {
+                const formData = new FormData()
+                formData.append('file', param.file)
+                const url="/uploadAvatar?username="+this.user.username;
+                this.$axios.post(url, formData).then(data => {
+
+                    alert('头像上传成功')
+                    this.user.avatar = this.$store.getters.getUser.avatar
+                    console.log(this.user.avatar)
+                }).catch(response => {
+
+                    alert('头像上传失败')
+                })
+            },
+
+
+            beforeAvatarUpload(file) {
+                console.log(file)
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
         },
         created(){
             console.log(this.$store.getters.getUser)
             if(this.$store.getters.getUser.username!=null){
                 this.user.username = this.$store.getters.getUser.username
+
                 this.user.avatar = this.$store.getters.getUser.avatar
                 this.hasLogin = true
                 console.log("===hasLogin===")

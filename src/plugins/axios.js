@@ -16,7 +16,7 @@ axios.interceptors.response.use(response=>{
     let res= response.data
 
     console.log("======后置拦截======")
-    console.log(res)
+    console.log(res.msg)
     console.log("==============")
 
     if(res.code===200){

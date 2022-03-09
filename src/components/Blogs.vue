@@ -13,7 +13,6 @@
 
                     <el-card>
                         <h4>
-                            <!--                                                                key:value 路由跳转携带参数-->
                             <router-link :to="{name:'BlogDetail',params:{blogId:blog.id}}">
                                 {{blog.title}}
                             </router-link>
@@ -54,11 +53,11 @@
             }
         },
         methods: {
-            page(currentPage,username) {
+            page(currentPage) {
                 const _this = this
-                _this.$axios.get("/blogs?currentPage=" + currentPage+"&username="+username).then(res => {
+                _this.$axios.get("/blogs?currentPage=" + currentPage+"&username="+this.username).then(res => {
                     //初始化
-                    console.log(username)
+                    console.log(this.username)
                     var data = res.data.data
                     _this.blogs = data.records
                     _this.currentPage = data.current
@@ -76,8 +75,10 @@
         },
         created() {
             if (this.$store.getters.getUser.username != null) {
+                this.username=this.$store.getters.getUser.username
+                console.log(this.username)
                 this.flag = true
-                this.page(1,this.$store.getters.getUser.username)
+                this.page(1)
             }
         }
     }
@@ -94,11 +95,11 @@
         text-align: center;
     }
 
-    /*#login{*/
-    /*    position: absolute;*/
-    /*    top: 0;*/
-    /*    left: 0;*/
-    /*    width: 100%;*/
-    /*    height: 100%;*/
-    /*}*/
+    #login{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 </style>

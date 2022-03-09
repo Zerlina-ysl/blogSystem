@@ -24,10 +24,19 @@
             <el-divider direction="vertical"></el-divider>
 
                 <el-link icon="el-icon-delete" v-show="ownBlog">
+
                  <span  round @click="delblog"  style="color: red">删除</span>
                 </el-link>
+
+            <el-divider direction="vertical"></el-divider>
+                <i class="el-icon-check"></i>
+            <el-link>
+
+                <el-button type="text" @click="copy(blog.content)" >复制</el-button>
+
+            </el-link>
             <el-divider></el-divider>
-            <div v-html="blog.content" class="markdown-body"></div>
+            <div v-html="blog.content" class="markdown-body" ></div>
 
         </div>
 
@@ -60,6 +69,7 @@
             removeSmallHert(){
                 this.$refs.background.removeSmallHert()
             },
+
             delblog(){
                 const blogId = this.$route.params.blogId
                 console.log(blogId)
@@ -91,8 +101,28 @@
                     });
                 }
 
-            }
+            },
+
+        copy(data) {
+
+            let url = data;
+            let oInput = document.createElement('input');
+            oInput.value = url;
+            document.body.appendChild(oInput);
+            oInput.select(); // 选择对象;
+            console.log(oInput.value)
+            document.execCommand("Copy"); // 执行浏览器复制命令
+            this.$message({
+                message: '复制成功',
+                type: 'success'
+            });
+            oInput.remove()
         },
+
+
+
+        },
+
         created(){
             console.log("BlogDetail")
 
@@ -126,8 +156,7 @@
 <style scoped>
     .mblog {
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-        width: 1000%;
-        min-height: 700px;
+        width: 100%;
         padding:20px 15px;
     }
     #login{

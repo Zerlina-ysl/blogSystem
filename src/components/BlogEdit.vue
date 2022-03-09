@@ -20,7 +20,7 @@
                     <mavon-editor v-model="ruleForm.content"></mavon-editor>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm',username)">立即发表</el-button>
+                    <el-button type="primary" @click="submitForm('ruleForm')">立即发表</el-button>
                     <el-button @click="resetForm('ruleForm')">重置</el-button>
                 </el-form-item>
             </el-form>
@@ -44,12 +44,12 @@
         components: {Header,background},
         data() {
             return {
-                username: '',
                 ruleForm: {
                     id :'',
                     title:'',
                     description:'',
                     content:'',
+                    username: '',
                 },
                 rules: {
                     title: [
@@ -67,11 +67,12 @@
             };
         },
         methods: {
-            submitForm(formName,username) {
+            submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this
-                        this.$axios.post('/blog/edit?username='+username,this.ruleForm,{
+                        this.ruleForm.username=this.$store.getters.getUser.username
+                        this.$axios.post('/blog/edit',this.ruleForm,{
                             headers:{
                                 "Authorization":localStorage.getItem("token")
 
@@ -106,7 +107,6 @@
         },
         created(){
             //页面刚加载时
-            this.username=this.$store.getters.getUser.username
             const blogId = this.$route.params.blogId
             if(blogId) {
 
