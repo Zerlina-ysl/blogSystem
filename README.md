@@ -1,5 +1,6 @@
 # blogSystem
 ## 基本介绍
+博客系统。前端位于vue_before分支，后端位于java_behind分支。
 
 ## 技术栈
 
