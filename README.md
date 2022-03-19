@@ -3,6 +3,7 @@
 简单的博客系统。
 前端位于vue_before分支。
 后端位于java_behind分支。
+建表语句位于vue_before的/src/sql/createTab.sql
 
 ## 技术栈
 ### 前端
