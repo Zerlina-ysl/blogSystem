@@ -23,7 +23,7 @@ spring:
 shiro-redis:
   enabled: true
   redis-manager:
-    host: 47.99.34.106:6379
+    host: 116.62.199.98:6379
 
 
 aliyun:

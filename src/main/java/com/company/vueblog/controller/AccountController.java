@@ -119,6 +119,7 @@ public class AccountController {
     @Autowired
     private IOssService ossService;
 
+    @RequiresAuthentication
     @PostMapping(value="/uploadAvatar")
     @ResponseBody
     public Result upload(@RequestParam("file")MultipartFile file,
